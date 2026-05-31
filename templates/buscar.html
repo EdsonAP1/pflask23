@@ -1,0 +1,86 @@
+{% extends "abase.html" %}
+{% block title %}Buscar Egresos{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-search"></i> Buscar Egresos
+        </h1>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="GET" class="d-flex gap-2">
+                    <input type="text" class="form-control" name="q" placeholder="Buscar por detalle..." value="{{ query }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                    {% if query %}
+                    <a href="{{ url_for('buscar_egreso') }}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Limpiar
+                    </a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
+        {% if query %}
+            {% if egresos %}
+           <div class="alert alert-info">
+    Se encontraron <strong>{{ egresos|length }}</strong> resultado(s) para "<strong>{{ query }}</strong>"
+</div>
+
+<div class="list-group">
+    {% for egreso in egresos %}
+    <div class="list-group-item list-group-item-action">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-1">{{ egreso.detalle }}</h6>
+
+                <small class="text-muted">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Bs {{ "%.2f"|format(egreso.monto) }}
+
+                    <span class="ms-3">
+                        <i class="far fa-calendar-alt"></i>
+                        {{ egreso.fecha.strftime('%d/%m/%Y') }}
+                    </span>
+
+                    {% if egreso.forma_pago %}
+                    <span class="ms-3">
+                        <i class="fas fa-credit-card"></i>
+                        {{ egreso.forma_pago.desformapago }}
+                    </span>
+                    {% endif %}
+                </small>
+            </div>
+
+            <div>
+                <a href="{{ url_for('editar_egreso', id=egreso.idegreso) }}"
+                   class="btn btn-sm btn-warning">
+                    <i class="fas fa-edit"></i>
+                </a>
+
+                <a href="{{ url_for('eliminar_egreso', id=egreso.idegreso) }}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('¿Eliminar este egreso?')">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+            {% else %}
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-circle"></i> No se encontraron egresos que coincidan con "<strong>{{ query }}</strong>"
+            </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-secondary">
+                <i class="fas fa-info-circle"></i> Ingresa un término de búsqueda para filtrar egresos.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

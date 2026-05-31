@@ -1,0 +1,55 @@
+{% extends "abase.html" %}
+{% block title %}Editar Egreso{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit"></i> Editar Egreso
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" class="needs-validation">
+                    <div class="mb-3">
+                        <label for="detalle" class="form-label">Detalle <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="detalle" name="detalle" value="{{ egreso.detalle }}" placeholder="Ej: Café, Lunch, etc." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="monto" class="form-label">Monto <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="monto" name="monto" value="{{ egreso.monto }}" placeholder="0.00" step="0.01" min="0" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" value="{{ egreso.fecha.isoformat() }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="idformapago" class="form-label">Forma de Pago <span class="text-danger">*</span></label>
+                        <select class="form-control" id="idformapago" name="idformapago" required>
+                            <option value="">Seleccionar...</option>
+                            {% for forma in formas_pago %}
+                            <option value="{{ forma.idformapago }}" {% if forma.idformapago == egreso.idformapago %}selected{% endif %}>
+                                {{ forma.desformapago }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning btn-lg">
+                            <i class="fas fa-save"></i> Actualizar Egreso
+                        </button>
+                        <a href="{{ url_for('inicio') }}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

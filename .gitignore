@@ -1,0 +1,16 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Variables de entorno (¡Muy importante no subir contraseñas!)
+.env
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Base de datos local (si usas SQLite y no quieres subirla)
+*.sqlite3
+*.db

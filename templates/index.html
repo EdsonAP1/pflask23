@@ -1,0 +1,66 @@
+{% extends "abase.html" %}
+{% block title %}Lista de Egresos{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-list-check"></i> Egresos
+            <span class="badge bg-secondary">{{ egresos|length }}</span>
+        </h1>
+        {% if egresos %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Detalle</th>
+                        <th class="text-end">Monto</th>
+                        <th>Fecha</th>
+                        <th>Forma de Pago</th>
+                        <th class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for egreso in egresos %}
+                    <tr>
+                        <td>
+                            <strong>{{ egreso.detalle[:50] }}</strong>
+                        </td>
+                        <td class="text-end">
+                            <span class="badge bg-info">{{ "%.2f"|format(egreso.monto) }}</span>
+                        </td>
+                        <td>
+                            <i class="far fa-calendar-alt"></i>
+                            {{ egreso.fecha.strftime('%d/%m/%Y %H:%M') }}
+                        </td>
+                        <td>
+                            {% if egreso.forma_pago %}
+                                <small class="badge bg-primary">{{ egreso.forma_pago.desformapago }}</small>
+                            {% else %}
+                                <small class="text-muted">-</small>
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            <a href="{{ url_for('editar_egreso', id=egreso.idegreso) }}" class="btn btn-sm btn-warning" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{ url_for('eliminar_egreso', id=egreso.idegreso) }}" class="btn btn-sm btn-danger" title="Eliminar"
+                                onclick="return confirm('¿Eliminar este egreso?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> No hay egresos aún.
+            <a href="{{ url_for('crear_egreso') }}" class="alert-link">Crea un nuevo egreso</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
