@@ -93,45 +93,6 @@ pflask23/
     └── buscar.html     # Página de búsqueda
 ```
 
-## Funcionalidades
-
-- ✅ Crear nuevos egresos
-- ✅ Editar egresos existentes
-- ✅ Eliminar egresos
-- ✅ Listar todos los egresos
-- ✅ Buscar egresos
-- ✅ Registrar forma de pago (Efectivo, Tarjeta Débito, Tarjeta Crédito, Transferencia)
-
-## Troubleshooting
-
-### Error: "No module named 'flask'"
-```bash
-pip install -r requirements.txt
-```
-
-### Error: "Base de datos no existe"
-La aplicación creará automáticamente la base de datos al iniciar. Si usas PostgreSQL, asegúrate de que el servidor esté corriendo.
-
-### Puerto 5000 ya está en uso
-```bash
-flask run --port 5001
-```
-
-## Desarrollo
-
-Para realizar cambios en el código:
-
-1. Asegurate que el entorno virtual esté activado
-2. Realiza tus cambios
-3. El servidor de desarrollo recargará automáticamente los cambios
-4. Prueba la aplicación en tu navegador
-
-## Desactivar el Entorno Virtual
-
-```bash
-deactivate
-```
-
 ## Licencia
 
 Este proyecto es de uso educativo.
