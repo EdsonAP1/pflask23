@@ -93,4 +93,4 @@ pflask23/
     └── buscar.html     # Página de búsqueda
 ```
 
-## Licencia de uso educativo.!!!
+
