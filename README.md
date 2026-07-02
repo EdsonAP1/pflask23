@@ -1,6 +1,6 @@
 # Gestor de Egresos - Flask
 
-Aplicación web desarrollada en Flask 
+web desarrollada en Flask 
 
 ## Requisitos Previos
 
