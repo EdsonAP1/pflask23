@@ -93,6 +93,4 @@ pflask23/
     └── buscar.html     # Página de búsqueda
 ```
 
-## Licencia
-
-Este proyecto es de uso educativo.!!!
+## Licencia de uso educativo.!!!
