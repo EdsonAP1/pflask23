@@ -66,13 +66,6 @@ flask run
 
 La aplicación estará disponible en: `http://localhost:5000`
 
-### Opción 2: Con Gunicorn (Producción)
-
-```bash
-gunicorn -w 4 -b 0.0.0.0:8000 app:app
-```
-
-La aplicación estará disponible en: `http://localhost:8000`
 
 ## Estructura del Proyecto
 
