@@ -1,4 +1,4 @@
-# Gestor de Egresos - Flask
+# Gestor de Egresos
 
 web desarrollada en Flask 
 
