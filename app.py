@@ -30,54 +30,46 @@ def inicio():
     return render_template("index.html", egresos=egresos)
 
 
-
-
 @app.route("/egresos/crear", methods=["GET", "POST"])
 def crear_egreso():
     if request.method == "POST":
-        detalle = request.form.get("detalle", "").strip()
-        monto = request.form.get("monto", "").strip()
-        fecha = request.form.get("fecha", "").strip()
-        idformapago = request.form.get("idformapago", "").strip()
-        
-        # Validaciones
-        if not detalle:
-            flash("Detalle es obligatorio", "error")
-            return redirect(url_for("crear_egreso"))
-        
-        if not monto:
-            flash("Monto es obligatorio", "error")
-            return redirect(url_for("crear_egreso"))
-        
-        if not fecha:
-            flash("Fecha es obligatoria", "error")
-            return redirect(url_for("crear_egreso"))
-        
-        if not idformapago:
-            flash("Forma de pago es obligatoria", "error")
-            return redirect(url_for("crear_egreso"))
-        
+        detalle = request.form.get("detalle")
+        monto = request.form.get("monto")
+        fecha_str = request.form.get("fecha")
+        idformapago = request.form.get("idformapago")
+
+        if not detalle or not monto or not fecha_str or not idformapago:
+            flash("Todos los campos marcados con asterisco (*) son obligatorios.", "danger")
+            formas_pago = FormaPago.query.filter_by(estado=1).all()
+            return render_template("crear.html", formas_pago=formas_pago)
+
         try:
-            monto = float(monto)
-            if monto <= 0:
-                flash("El monto debe ser mayor a 0", "error")
-                return redirect(url_for("crear_egreso"))
-        except ValueError:
-            flash("El monto debe ser un número válido", "error")
-            return redirect(url_for("crear_egreso"))
-        
-        nuevo_egreso = Egreso(
-            detalle=detalle,
-            monto=monto,
-            fecha=fecha,
-            idformapago=idformapago,
-        )
-        db.session.add(nuevo_egreso)
-        db.session.commit()
-        flash(f'✅ Egreso "{detalle}" creado exitosamente', "success")
-        return redirect(url_for("inicio"))
-    formas_pago = FormaPago.query.all()
+            # Convertimos la fecha de string HTML 'YYYY-MM-DD' a objeto date de Python
+            fecha_objeto = datetime.strptime(fecha_str, "%Y-%m-%d").date()
+            
+            nuevo_egreso = Egreso(
+                detalle=detalle,
+                monto=float(monto),
+                fecha=fecha_objeto,  # Usamos el objeto date convertido
+                idformapago=int(idformapago)
+            )
+            
+            db.session.add(nuevo_egreso)
+            db.session.commit()
+            flash("Egreso registrado con éxito.", "success")
+            return redirect(url_for("inicio"))
+
+        except ValueError as e:
+            db.session.rollback()
+            flash(f"Error en el formato de datos: {str(e)}", "danger")
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Ocurrió un error inesperado: {str(e)}", "danger")
+
+    formas_pago = FormaPago.query.filter_by(estado=1).all()
     return render_template("crear.html", formas_pago=formas_pago)
+
+
 
 
 @app.route("/egresos/editar/<int:id>", methods=["GET", "POST"])
