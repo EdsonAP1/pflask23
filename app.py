@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from models import db, Egreso, FormaPago
 from config import Config
-
+from datetime import datetime
 app = Flask(__name__)
 
 app.config.from_object(Config)
