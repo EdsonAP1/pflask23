@@ -4,7 +4,7 @@
 
 
 
-- Python 3.8 o superior
+
 - pip (gestor de paquetes de Python)
 - Git (opcional, para clonar el repositorio)
 
