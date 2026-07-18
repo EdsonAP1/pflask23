@@ -7,7 +7,7 @@
 
 
 
-## Instalación
+## Instalación--
 
 ### 1. Clonar o descargar el proyecto
 
