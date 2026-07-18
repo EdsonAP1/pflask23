@@ -1,6 +1,6 @@
 
 
-web desarrollada en Flask 
+
 
 ## Requisitos Previos
 
