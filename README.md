@@ -5,7 +5,7 @@
 
 
 
-- pip (gestor de paquetes de Python)
+
 - Git (opcional, para clonar el repositorio)
 
 ## Instalación
