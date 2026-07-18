@@ -6,7 +6,6 @@
 
 
 
-- Git (opcional, para clonar el repositorio)
 
 ## Instalación
 
